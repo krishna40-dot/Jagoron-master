@@ -205,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
                         
                         
                         Text(
-                          'login',
+                          'Subscribe',
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
