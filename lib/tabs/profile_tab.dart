@@ -110,7 +110,8 @@ class _SettingPageState extends State<SettingPage>
                         ).tr(),
                         trailing: Switch(
                             activeColor: Theme.of(context).primaryColor,
-                            value: context.watch<NotificationBloc>().subscribed!,
+                            value:
+                                context.watch<NotificationBloc>().subscribed!,
                             onChanged: (bool value) => context
                                 .read<NotificationBloc>()
                                 .configureFcmSubscription(value)),
@@ -363,7 +364,6 @@ class _SettingPageState extends State<SettingPage>
                         onTap: () => AppService()
                             .openLink(context, Config.youtubeChannelUrl),
                       ),
-
                       _Divider(),
                       ListTile(
                         contentPadding: EdgeInsets.all(0),
@@ -384,12 +384,13 @@ class _SettingPageState extends State<SettingPage>
                               color: Theme.of(context).colorScheme.primary),
                         ).tr(),
                         trailing: Icon(Feather.chevron_right),
-                        onTap: () => AppService().openLink(context, Config.twitterUrl),
+                        onTap: () =>
+                            AppService().openLink(context, Config.twitterUrl),
                       ),
                     ],
                   ),
                 ),
-                
+
                 //BuyNowWidget(),
               ],
             ),
@@ -402,8 +403,6 @@ class _SettingPageState extends State<SettingPage>
   @override
   bool get wantKeepAlive => true;
 }
-
-
 
 class _Divider extends StatelessWidget {
   const _Divider({
@@ -438,7 +437,7 @@ class GuestUserUI extends StatelessWidget {
             ),
           ),
           title: Text(
-            'login',
+            'Subscribe',
             style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,

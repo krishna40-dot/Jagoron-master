@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 class Config {
 
   
-  static const appName = 'YOUR_APP_NAME';
-  static const supportEmail = 'YOUR_EMAIL';
-  static const privacyPolicyUrl = 'YOUR_PRIVACY_POLICY_URL';
+  static const appName = 'Jagoron';
+  static const supportEmail = 'admin@jagran.net';
+  static const privacyPolicyUrl = 'https://www.jagaran.net/privacy-policy/';
   static const iOSAppID = '000000';
 
 
 
   //SOCIAL LINKS
-  static const String facebookPageUrl = 'https://www.facebook.com/mrblab24';
-  static const String youtubeChannelUrl = 'https://www.youtube.com/channel/UCnNr2eppWVVo-NpRIy1ra7A';
-  static const String twitterUrl = 'https://twitter.com/FlutterDev';
+  static const String facebookPageUrl = 'https://www.facebook.com/জাগরণ-104971445422792/';
+  static const String youtubeChannelUrl = 'https://www.youtube.com/';
+  static const String twitterUrl = 'https://twitter.com/jagarana4bengal?t=yeCpo2pwzzOuvw9Qvgh-1w&s=09';
   
 
 

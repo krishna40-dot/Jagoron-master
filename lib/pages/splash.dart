@@ -14,7 +14,6 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  
   Future _afterSplash() async {
     final UserBloc ub = context.read<UserBloc>();
     Future.delayed(Duration(milliseconds: 1500)).then((value) {
@@ -43,8 +42,8 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       body: Center(
         child: Image(
-          height: 120,
-          width: 120,
+          height: 320,
+          width: 320,
           image: AssetImage(Config.splash),
           fit: BoxFit.contain,
         ),

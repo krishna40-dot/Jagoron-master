@@ -5,16 +5,16 @@
     "welcome-intro": "Explore the latest news and events happening in the world in minutes. Subscribe and get notified of all of our articles & share them with your friends..",
     "skip": "Skip",
 
-    "don't have an account?" : "Don't have an account?",
-    "create" : "Create",
-    "create account" : "Create Account",
-    "login" : "Login",
-    "login to access all features" : "Login to access all features",
+    "don't have an account?" : "Not subscribed yet?",
+    "create" : "Subscribe",
+    "create account" : "Subscribe Now",
+    "login" : "Subscribe",
+    "login to access all features" : "Subscribe to access all features",
     "follow the simple steps": "Follow the simple steps",
     "already have an account?": "Already have an account?",
 
     "search contents" : "Search News",
-    "popular contents" : "Popular News",
+    "popular contents" : "Top News",
     "recent contents" : "Latest News",
     "view all" : "view all",
 
@@ -95,7 +95,7 @@
     "flag comment" : "Flag this comment",
     "unflag comment" : "Unflag this comment",
     "report" : "Report",
-    "report-info" : "Your report has been sent succesfully to the admins",
+    "report-info" : "Your report has been sent successfully to the admins",
     "comment flagged" : "This comment has been flagged!"
     
 

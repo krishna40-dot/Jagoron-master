@@ -22,15 +22,14 @@ class HomeTab extends StatefulWidget {
   _HomeTabState createState() => _HomeTabState();
 }
 
-class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-
-
-  late TabController _tabController ;
+class _HomeTabState extends State<HomeTab>
+    with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
+  late TabController _tabController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-    List<Tab> _tabs = [
+  List<Tab> _tabs = [
     Tab(
-      text: "explore".tr(),
+      text: "Top News".tr(),
     ),
     Tab(
       text: WpConfig.selectedCategories['1'][1],
@@ -46,12 +45,12 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin, T
     ),
   ];
 
-
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: _tabs.length, initialIndex: 0, vsync: this);
-    _tabController.addListener(() { 
+    _tabController =
+        TabController(length: _tabs.length, initialIndex: 0, vsync: this);
+    _tabController.addListener(() {
       context.read<TabIndexBloc>().setTabIndex(_tabController.index);
     });
     Future.delayed(Duration(milliseconds: 0)).then((value) {
@@ -61,58 +60,53 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin, T
     });
   }
 
-
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
   }
 
-
-
-  
-
-  
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-
-        drawer: CustomDrawer(),
-        key: scaffoldKey,
-        body: NestedScrollView(
-            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            new SliverAppBar(
-              automaticallyImplyLeading: false,
-              centerTitle: false,
-              titleSpacing: 0,
-              title: Image(image: AssetImage(Config.logo,), height: 19,),
-              leading: IconButton(
+      drawer: CustomDrawer(),
+      key: scaffoldKey,
+      body: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return <Widget>[
+          new SliverAppBar(
+            automaticallyImplyLeading: false,
+            centerTitle: false,
+            titleSpacing: 0,
+            title: Image(
+              image: AssetImage(
+                Config.logo,
+              ),
+              height: 19,
+            ),
+            leading: IconButton(
+              icon: Icon(
+                Feather.menu,
+                size: 25,
+              ),
+              onPressed: () {
+                scaffoldKey.currentState!.openDrawer();
+              },
+            ),
+            elevation: 1,
+            actions: <Widget>[
+              IconButton(
                 icon: Icon(
-                  Feather.menu,
-                  size: 25,
+                  AntDesign.search1,
+                  size: 22,
                 ),
                 onPressed: () {
-                  scaffoldKey.currentState!.openDrawer();
+                  nextScreen(context, SearchPage());
                 },
               ),
-              elevation: 1,
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    AntDesign.search1,
-                    size: 22,
-                  ),
-                  onPressed: () {
-                    nextScreen(context, SearchPage());
-                  },
-                ),
-
-                SizedBox(width: 3),
-
-                IconButton(
+              SizedBox(width: 3),
+              IconButton(
                 padding: EdgeInsets.only(right: 8),
                 constraints: BoxConstraints(),
                 icon: Icon(
@@ -121,49 +115,45 @@ class _HomeTabState extends State<HomeTab> with AutomaticKeepAliveClientMixin, T
                 ),
                 onPressed: () => nextScreen(context, Notifications()),
               ),
-                SizedBox(
-                  width: 10,
-                )
-              ],
-              pinned: true,
-              floating: true,
-              forceElevated: innerBoxIsScrolled,
-              bottom: TabBar(
-                labelStyle: TextStyle(
-                    fontFamily: 'Manrope',
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600),
-                controller: _tabController,
-                indicatorSize: TabBarIndicatorSize.label,
-                labelColor: Theme.of(context).primaryColor,
-                unselectedLabelColor: Colors.grey, //niceish grey
-                isScrollable: true,
-                indicator: MD2Indicator(
-                  indicatorHeight: 3,
-                  indicatorColor: Theme.of(context).primaryColor,
-                  indicatorSize: MD2IndicatorSize.normal,
-                ),
-                tabs: _tabs,
+              SizedBox(
+                width: 10,
+              )
+            ],
+            pinned: true,
+            floating: true,
+            forceElevated: innerBoxIsScrolled,
+            bottom: TabBar(
+              labelStyle: TextStyle(
+                  fontFamily: 'Manrope',
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600),
+              controller: _tabController,
+              indicatorSize: TabBarIndicatorSize.label,
+              labelColor: Theme.of(context).primaryColor,
+              unselectedLabelColor: Colors.grey, //niceish grey
+              isScrollable: true,
+              indicator: MD2Indicator(
+                indicatorHeight: 3,
+                indicatorColor: Theme.of(context).primaryColor,
+                indicatorSize: MD2IndicatorSize.normal,
               ),
+              tabs: _tabs,
             ),
-          ];
-        }, 
-        
-        body: Builder(
-          builder: (BuildContext context) {
-            final innerScrollController = PrimaryScrollController.of(context);
-            return TabMedium(
-              sc: innerScrollController!,
-              tc: _tabController,
-              scaffoldKey: scaffoldKey,
-            );
-          },
-        )
-      ),
-      );
+          ),
+        ];
+      }, body: Builder(
+        builder: (BuildContext context) {
+          final innerScrollController = PrimaryScrollController.of(context);
+          return TabMedium(
+            sc: innerScrollController!,
+            tc: _tabController,
+            scaffoldKey: scaffoldKey,
+          );
+        },
+      )),
+    );
   }
 
   @override
   bool get wantKeepAlive => true;
 }
-

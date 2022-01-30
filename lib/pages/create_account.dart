@@ -25,7 +25,6 @@ class CreateAccountPage extends StatefulWidget {
 }
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
-
   var scaffoldKey = GlobalKey<ScaffoldState>();
   var formKey = GlobalKey<FormState>();
   var userNameCtrl = TextEditingController();
@@ -51,49 +50,50 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     }
   }
 
-
-  Future _handleCreateUser () async {
+  Future _handleCreateUser() async {
     final UserBloc ub = Provider.of<UserBloc>(context, listen: false);
-    if(userNameCtrl.text.isEmpty){
+    if (userNameCtrl.text.isEmpty) {
       _btnController.reset();
       openSnacbar(scaffoldKey, 'Username is required');
-    }
-    else if(emailCtrl.text.isEmpty){
+    } else if (emailCtrl.text.isEmpty) {
       _btnController.reset();
       openSnacbar(scaffoldKey, 'Email is required');
-    }
-    else if(passwordCtrl.text.isEmpty){
+    } else if (passwordCtrl.text.isEmpty) {
       _btnController.reset();
       openSnacbar(scaffoldKey, 'Password is required');
-    }
-    else if(_checkboxTicked == false){
+    } else if (_checkboxTicked == false) {
       _btnController.reset();
-      openSnacbar(scaffoldKey, 'Please accept the terms & conditions to continue');
-    }
-    else{
-      AppService().checkInternet().then((hasInternet){
-        if(!hasInternet!){
+      openSnacbar(
+          scaffoldKey, 'Please accept the terms & conditions to continue');
+    } else {
+      AppService().checkInternet().then((hasInternet) {
+        if (!hasInternet!) {
           _btnController.reset();
           openSnacbar(scaffoldKey, 'no internet'.tr());
-        }else {
-          AuthService().customAuthenticationViaJWT().then((JwtStatus? status)async{
-            
-            if(status == null || status.isSuccessfull == false){
+        } else {
+          AuthService()
+              .customAuthenticationViaJWT()
+              .then((JwtStatus? status) async {
+            if (status == null || status.isSuccessfull == false) {
               _btnController.reset();
               openSnacbar(scaffoldKey, 'JWT Authentication Error');
-            }else{
-              await AuthService().createUserWithUsernamePassword(status.urlHeader, userNameCtrl.text, emailCtrl.text, passwordCtrl.text)
-              .then((AuthStatus? authStatus)async{
-                if(authStatus == null || authStatus.isSuccessfull == false){
+            } else {
+              await AuthService()
+                  .createUserWithUsernamePassword(status.urlHeader,
+                      userNameCtrl.text, emailCtrl.text, passwordCtrl.text)
+                  .then((AuthStatus? authStatus) async {
+                if (authStatus == null || authStatus.isSuccessfull == false) {
                   _btnController.reset();
                   openSnacbar(scaffoldKey, authStatus!.errorMessage);
-                }else{
-                  await ub.guestUserSignout()
-                  .then((value) => ub.saveUserData(authStatus.userModel!))
-                  .then((value) => ub.setSignIn()).then((value){
+                } else {
+                  await ub
+                      .guestUserSignout()
+                      .then((value) => ub.saveUserData(authStatus.userModel!))
+                      .then((value) => ub.setSignIn())
+                      .then((value) {
                     _btnController.success();
                     afterSignUp();
-              });
+                  });
                 }
               });
             }
@@ -103,15 +103,10 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
     }
   }
 
-
-
-
-
   void afterSignUp() async {
-    if(widget.popUpScreen == null || widget.popUpScreen == false){
+    if (widget.popUpScreen == null || widget.popUpScreen == false) {
       nextScreen(context, DonePage());
-
-    }else{
+    } else {
       Navigator.pop(context);
     }
   }
@@ -125,7 +120,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.close),
-          onPressed: ()=> Navigator.pop(context),
+          onPressed: () => Navigator.pop(context),
         ),
       ),
       body: SingleChildScrollView(
@@ -135,11 +130,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'create account',
+              'Subscribe Now',
               style: TextStyle(
-                letterSpacing: -0.7,
-                wordSpacing: 1,
-                fontSize: 22, fontWeight: FontWeight.w600),
+                  letterSpacing: -0.7,
+                  wordSpacing: 1,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600),
             ).tr(),
             SizedBox(
               height: 15,
@@ -155,178 +151,183 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               height: 40,
             ),
             Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-
-                  Text(
-                    'Username',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, wordSpacing: 1, letterSpacing: -0.7),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Username',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      wordSpacing: 1,
+                      letterSpacing: -0.7),
+                ),
+                Container(
+                  height: 50,
+                  margin: EdgeInsets.only(top: 10, bottom: 30),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primaryVariant,
+                    borderRadius: BorderRadius.circular(3),
                   ),
-                  Container(
-                    height: 50,
-                    margin: EdgeInsets.only(top: 10, bottom: 30),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primaryVariant,
-                      borderRadius: BorderRadius.circular(3),
-                    ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          hintText: 'Enter username',
-                          hintStyle: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15),
-                          border: InputBorder.none,
-                          prefixIcon: Icon(
-                            Icons.person,
-                            size: 20,
-                          )),
-                      controller: userNameCtrl,
-                      keyboardType: TextInputType.text,
-                      
-                    ),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                        hintText: 'Enter username',
+                        hintStyle: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 15),
+                        border: InputBorder.none,
+                        prefixIcon: Icon(
+                          Icons.person,
+                          size: 20,
+                        )),
+                    controller: userNameCtrl,
+                    keyboardType: TextInputType.text,
                   ),
-
-                  Text(
-                    'Email Address',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, wordSpacing: 1, letterSpacing: -0.7),
+                ),
+                Text(
+                  'Email Address',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      wordSpacing: 1,
+                      letterSpacing: -0.7),
+                ),
+                Container(
+                  height: 50,
+                  margin: EdgeInsets.only(top: 10, bottom: 30),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primaryVariant,
+                    borderRadius: BorderRadius.circular(3),
                   ),
-                  Container(
-                    height: 50,
-                    margin: EdgeInsets.only(top: 10, bottom: 30),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primaryVariant,
-                      borderRadius: BorderRadius.circular(3),
-                    ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          hintText: 'Enter email address',
-                          hintStyle: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15),
-                          border: InputBorder.none,
-                          prefixIcon: Icon(
-                            Icons.person,
-                            size: 20,
-                          )),
-                      controller: emailCtrl,
-                      keyboardType: TextInputType.text,
-                      
-                    ),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                        hintText: 'Enter email address',
+                        hintStyle: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 15),
+                        border: InputBorder.none,
+                        prefixIcon: Icon(
+                          Icons.person,
+                          size: 20,
+                        )),
+                    controller: emailCtrl,
+                    keyboardType: TextInputType.text,
                   ),
-
-                  
-                  Text(
-                    'Password',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, wordSpacing: 1, letterSpacing: -0.7),
+                ),
+                Text(
+                  'Password',
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      wordSpacing: 1,
+                      letterSpacing: -0.7),
+                ),
+                Container(
+                  height: 50,
+                  margin: EdgeInsets.only(top: 10, bottom: 10),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primaryVariant,
+                    borderRadius: BorderRadius.circular(3),
                   ),
-                  Container(
-                    height: 50,
-                    margin: EdgeInsets.only(top: 10, bottom: 10),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primaryVariant,
-                      borderRadius: BorderRadius.circular(3),
-                    ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          hintText: 'Enter password',
-                          hintStyle: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15),
-                          border: InputBorder.none,
-                          suffixIcon: IconButton(
-                              icon: lockIcon,
-                              onPressed: () => _onlockPressed()),
-                          prefixIcon: Icon(
-                            Icons.lock,
-                            size: 20,
-                          )),
-                      controller: passwordCtrl,
-                      obscureText: offsecureText,
-                      keyboardType: TextInputType.text,
-                    ),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                        hintText: 'Enter password',
+                        hintStyle: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 15),
+                        border: InputBorder.none,
+                        suffixIcon: IconButton(
+                            icon: lockIcon, onPressed: () => _onlockPressed()),
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          size: 20,
+                        )),
+                    controller: passwordCtrl,
+                    obscureText: offsecureText,
+                    keyboardType: TextInputType.text,
                   ),
-                  SizedBox(
-                    height: 40,
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                Container(
+                  child: Row(
+                    children: [
+                      Checkbox(
+                        value: _checkboxTicked,
+                        checkColor: Colors.white,
+                        fillColor: MaterialStateProperty.resolveWith(
+                            (states) => Theme.of(context).primaryColor),
+                        onChanged: (value) {
+                          setState(() {
+                            _checkboxTicked = value!;
+                          });
+                        },
+                      ),
+                      InkWell(
+                        child: Text(
+                          'accept terms',
+                          style: TextStyle(color: Colors.blueAccent),
+                        ).tr(),
+                        onTap: () => AppService().openLinkWithCustomTab(
+                            context, Config.privacyPolicyUrl),
+                      )
+                    ],
                   ),
-
-                  Container(
-                    child: Row(
-                      children: [
-                        Checkbox(
-                          value: _checkboxTicked,
-                          checkColor: Colors.white,
-                          fillColor: MaterialStateProperty.resolveWith((states) => Theme.of(context).primaryColor),
-                          onChanged: (value){
-                            setState(() {
-                              _checkboxTicked = value!;
-                            });
-                          },
-                        ),
-                        InkWell(
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                RoundedLoadingButton(
+                  animateOnTap: true,
+                  child: Wrap(
+                    children: [
+                      Text(
+                        'create',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      ).tr()
+                    ],
+                  ),
+                  controller: _btnController,
+                  onPressed: () => _handleCreateUser(),
+                  width: MediaQuery.of(context).size.width * 1.0,
+                  color: Theme.of(context).primaryColor,
+                  elevation: 0,
+                ),
+                Container(
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.only(top: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "already have an account?",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                            color: Theme.of(context).colorScheme.secondary),
+                      ).tr(),
+                      TextButton(
                           child: Text(
-                            'accept terms',
+                            'login',
                             style: TextStyle(
-                              color: Colors.blueAccent
-                            ),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                                color: Theme.of(context).colorScheme.primary),
                           ).tr(),
-                          onTap: ()=> AppService().openLinkWithCustomTab(context, Config.privacyPolicyUrl),
-                        )
-                      ],
-                    ),
+                          onPressed: () => nextScreenReplace(
+                              context,
+                              LoginPage(
+                                popUpScreen: widget.popUpScreen,
+                              ))),
+                    ],
                   ),
-
-                  SizedBox(height: 5,),
-                  
-                  
-
-                  RoundedLoadingButton(
-                    animateOnTap: true,
-
-                    child: Wrap(
-                      children: [
-                        
-                        
-                        Text(
-                          'create',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white),
-                        ).tr()
-                      ],
-                    ),
-                    controller: _btnController,
-                    onPressed: () => _handleCreateUser(),
-                    width: MediaQuery.of(context).size.width * 1.0,
-                    color: Theme.of(context).primaryColor,
-                    elevation: 0,
-                  ),
-
-                  Container(
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.only(top: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("already have an account?", style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 14, color: Theme.of(context).colorScheme.secondary),).tr(),
-                        TextButton(
-                            child: Text(
-                              'login',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 15, color: Theme.of(context).colorScheme.primary),
-                            ).tr(),
-                            onPressed: () => nextScreenReplace(context, LoginPage(popUpScreen: widget.popUpScreen,))),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            
+                ),
+              ],
+            ),
           ],
         ),
       ),

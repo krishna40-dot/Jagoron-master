@@ -24,26 +24,25 @@ class CustomDrawer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 250,
-              width: double.infinity,
-              color: Theme.of(context).colorScheme.primaryVariant,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(bottom: 3),
-                    child: Image(
-                      height: 40,
-                      width: 180,
-                      fit: BoxFit.contain,
-                      image: AssetImage(Config.logo)),
-                  ),
-                  Text('App Version : ${context.watch<SettingsBloc>().appVersion}')
-                  
-                ],
-              )
-            ),
+                height: 250,
+                width: double.infinity,
+                color: Theme.of(context).colorScheme.primaryVariant,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(bottom: 3),
+                      child: Image(
+                          height: 60,
+                          width: 270,
+                          fit: BoxFit.contain,
+                          image: AssetImage(Config.logo)),
+                    ),
+                    Text(
+                        'App Version : ${context.watch<SettingsBloc>().appVersion}')
+                  ],
+                )),
             Container(
               padding: EdgeInsets.all(15),
               child: Column(
@@ -51,7 +50,10 @@ class CustomDrawer extends StatelessWidget {
                   ListTile(
                     isThreeLine: false,
                     contentPadding: EdgeInsets.all(0),
-                    leading: Icon(Icons.email_outlined, size: 22,),
+                    leading: Icon(
+                      Icons.email_outlined,
+                      size: 22,
+                    ),
                     horizontalTitleGap: 5,
                     title: Text(
                       'contact us',
@@ -60,14 +62,17 @@ class CustomDrawer extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ).tr(),
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
                       AppService().openEmailSupport(context);
                     },
                   ),
                   ListTile(
                     contentPadding: EdgeInsets.all(0),
-                    leading: Icon(Icons.link_outlined, size: 22,),
+                    leading: Icon(
+                      Icons.link_outlined,
+                      size: 22,
+                    ),
                     horizontalTitleGap: 5,
                     title: Text(
                       'our website',
@@ -76,14 +81,18 @@ class CustomDrawer extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ).tr(),
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
-                      AppService().openLinkWithCustomTab(context, WpConfig.websiteUrl);
+                      AppService()
+                          .openLinkWithCustomTab(context, WpConfig.websiteUrl);
                     },
                   ),
                   ListTile(
                     contentPadding: EdgeInsets.all(0),
-                    leading: Icon(Feather.facebook, size: 22,),
+                    leading: Icon(
+                      Feather.facebook,
+                      size: 22,
+                    ),
                     horizontalTitleGap: 5,
                     title: Text(
                       'facebook page',
@@ -92,15 +101,17 @@ class CustomDrawer extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ).tr(),
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
                       AppService().openLink(context, Config.facebookPageUrl);
                     },
-
                   ),
                   ListTile(
                     contentPadding: EdgeInsets.all(0),
-                    leading: Icon(Feather.youtube, size: 22,),
+                    leading: Icon(
+                      Feather.youtube,
+                      size: 22,
+                    ),
                     horizontalTitleGap: 5,
                     title: Text(
                       'youtube channel',
@@ -109,14 +120,17 @@ class CustomDrawer extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ).tr(),
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
                       AppService().openLink(context, Config.youtubeChannelUrl);
                     },
                   ),
                   ListTile(
                     contentPadding: EdgeInsets.all(0),
-                    leading: Icon(Feather.twitter, size: 22,),
+                    leading: Icon(
+                      Feather.twitter,
+                      size: 22,
+                    ),
                     horizontalTitleGap: 5,
                     title: Text(
                       'twitter',
@@ -125,7 +139,7 @@ class CustomDrawer extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ).tr(),
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
                       AppService().openLink(context, Config.twitterUrl);
                     },
@@ -153,14 +167,13 @@ class CustomDrawer extends StatelessWidget {
                 padding: EdgeInsets.only(top: 10, bottom: 30),
                 itemCount: d.length,
                 itemBuilder: (BuildContext context, int index) {
-
-                  final String _thumbnail = WpConfig.categoryThumbnails.keys.contains(d[index].id)
-                    ? WpConfig.categoryThumbnails[d[index].id]
-                    : WpConfig.randomCategoryThumbnail;
-
+                  final String _thumbnail =
+                      WpConfig.categoryThumbnails.keys.contains(d[index].id)
+                          ? WpConfig.categoryThumbnails[d[index].id]
+                          : WpConfig.randomCategoryThumbnail;
 
                   //subcategories removed from the category list
-                  if(d[index].parent != 0){
+                  if (d[index].parent != 0) {
                     return Container();
                   }
 
@@ -171,9 +184,11 @@ class CustomDrawer extends StatelessWidget {
                         backgroundImage: CachedNetworkImageProvider(_thumbnail),
                       ),
                       title: InkWell(
-                        child: Text(d[index].name!.toUpperCase(), style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary
-                        ),),
+                        child: Text(
+                          d[index].name!.toUpperCase(),
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.secondary),
+                        ),
                         onTap: () {
                           Navigator.pop(context);
                           nextScreen(

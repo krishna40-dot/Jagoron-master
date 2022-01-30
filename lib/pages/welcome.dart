@@ -19,8 +19,6 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-
-
   void _onSkipPressed() async {
     final UserBloc ub = Provider.of<UserBloc>(context, listen: false);
     await ub.loginAsGuestUser().then((_) {
@@ -70,7 +68,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     children: <Widget>[
                       Image(
                         image: AssetImage(Config.splash),
-                        height: 130,
+                        height: 230,
                       ),
                       SizedBox(
                         height: 40,
@@ -83,10 +81,10 @@ class _WelcomePageState extends State<WelcomePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'welcome to',
+                                'Welcome to Jagoron News',
                                 style: TextStyle(
                                     fontSize: 22,
-                                    fontWeight: FontWeight.w300,
+                                    fontWeight: FontWeight.w600,
                                     color: Theme.of(context)
                                         .colorScheme
                                         .secondary),
@@ -94,11 +92,11 @@ class _WelcomePageState extends State<WelcomePage> {
                               SizedBox(
                                 width: 5,
                               ),
-                              Image(
-                                image: AssetImage(Config.logo),
-                                height: 40,
-                                width: 160,
-                              )
+                              // Image(
+                              //   image: AssetImage(Config.logo),
+                              //   height: 40,
+                              //   width: 160,
+                              // )
                             ],
                           ),
                           Padding(
@@ -117,84 +115,79 @@ class _WelcomePageState extends State<WelcomePage> {
                         ],
                       ),
                     ],
-                  )
-              ),
+                  )),
 
               Spacer(),
 
-              Flexible(
-                flex: 1,
-                child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(left: 20, right: 20),
-                      width: MediaQuery.of(context).size.width * 0.80,
-                      height: 45,
-                      
-                      child: TextButton(
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.resolveWith((states) => RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)
-                          )),
-                          backgroundColor: MaterialStateProperty.resolveWith(
-                              (states) => Theme.of(context).primaryColor),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "login to continue",
-                              style: TextStyle(
-                                  letterSpacing: -0.7,
-                                  wordSpacing: 1,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white),
-                            ).tr(),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Icon(
-                              Feather.arrow_right,
-                              color: Colors.white,
-                            )
-                          ],
-                        ),
-                        onPressed: () => nextScreen(context, LoginPage()),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "don't have an account?",
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context).colorScheme.secondary),
-                        ).tr(),
-                        TextButton(
-                          child: Text(
-                            'create',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                                color: Theme.of(context).colorScheme.primary),
-                          ).tr(),
-                          onPressed: () =>
-                              nextScreen(context, CreateAccountPage()),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
+              // Flexible(
+              //   flex: 1,
+              //   child: Column(
+              //     children: [
+              //       Container(
+              //         margin: EdgeInsets.only(left: 20, right: 20),
+              //         width: MediaQuery.of(context).size.width * 0.80,
+              //         height: 45,
 
-
+              //         child: TextButton(
+              //           style: ButtonStyle(
+              //             shape: MaterialStateProperty.resolveWith((states) => RoundedRectangleBorder(
+              //               borderRadius: BorderRadius.circular(30)
+              //             )),
+              //             backgroundColor: MaterialStateProperty.resolveWith(
+              //                 (states) => Theme.of(context).primaryColor),
+              //           ),
+              //           child: Row(
+              //             mainAxisAlignment: MainAxisAlignment.center,
+              //             children: [
+              //               Text(
+              //                 "login to continue",
+              //                 style: TextStyle(
+              //                     letterSpacing: -0.7,
+              //                     wordSpacing: 1,
+              //                     fontSize: 16,
+              //                     fontWeight: FontWeight.w600,
+              //                     color: Colors.white),
+              //               ).tr(),
+              //               SizedBox(
+              //                 width: 15,
+              //               ),
+              //               Icon(
+              //                 Feather.arrow_right,
+              //                 color: Colors.white,
+              //               )
+              //             ],
+              //           ),
+              //           onPressed: () => nextScreen(context, LoginPage()),
+              //         ),
+              //       ),
+              //       Row(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: [
+              //           Text(
+              //             "don't have an account?",
+              //             style: TextStyle(
+              //                 fontSize: 14,
+              //                 fontWeight: FontWeight.w500,
+              //                 color: Theme.of(context).colorScheme.secondary),
+              //           ).tr(),
+              //           TextButton(
+              //             child: Text(
+              //               'create',
+              //               style: TextStyle(
+              //                   fontSize: 15,
+              //                   fontWeight: FontWeight.w500,
+              //                   color: Theme.of(context).colorScheme.primary),
+              //             ).tr(),
+              //             onPressed: () =>
+              //                 nextScreen(context, CreateAccountPage()),
+              //           )
+              //         ],
+              //       )
+              //     ],
+              //   ),
+              // ),
             ],
           ),
-        )
-    );
+        ));
   }
 }
-
